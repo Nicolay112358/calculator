@@ -17,4 +17,18 @@ function divide(a, b) {
     }
 }
 
-console.log(divide(3, 1));
+function operate(a, operator, b) {
+    switch (operator) {
+        case '/':
+            return divide(a, b);
+        case 'X':
+            return multiply(a, b);
+        case '-':
+            return subtract(a, b);
+        case '+':
+            return add(a, b);
+    }
+
+}
+
+console.log(operate(5, '-', 2));
