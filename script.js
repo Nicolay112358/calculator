@@ -1,3 +1,5 @@
+let a, b;
+
 function add(a, b) {
     return a + b;
 }
@@ -30,5 +32,11 @@ function operate(a, operator, b) {
     }
 
 }
-
-console.log(operate(5, '-', 2));
+function buttonClick() {
+    let button = document.querySelectorAll('.button');
+    button.forEach(button => button.addEventListener('click', () => {
+        let display = document.querySelector('.display');
+        display.textContent = `${button.textContent}`;
+    }));
+}
+buttonClick();

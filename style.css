@@ -16,14 +16,15 @@ body {
 .display {
     height: 150px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: flex-end;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 15px;
     margin-left: 15px;
     margin-right: 15px;
     border: white solid 1px;
     border-radius: 5px;
+    color: white;
+    font-size: 45px;
 }
 
 .display div {
