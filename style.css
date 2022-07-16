@@ -20,6 +20,10 @@ body {
     align-items: flex-end;
     padding-left: 20px;
     padding-right: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border: white solid 1px;
+    border-radius: 5px;
 }
 
 .display div {
