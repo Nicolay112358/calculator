@@ -1,4 +1,4 @@
-let a = 0, b = 0;
+let a, b, operator;
 
 function add(a, b) {
     return a + b;
@@ -11,9 +11,10 @@ function subtract(a, b) {
 function multiply(a, b) {
     return a * b;
 }
+
 function divide(a, b) {
     if (b === 0) {
-        alert(`you can not divide by zero`);
+        alert(`You can not divide by zero`);
     } else {
         return a / b;
     }
@@ -32,16 +33,24 @@ function operate(a, operator, b) {
     }
 
 }
-function buttonClick() {
-    let button = document.querySelectorAll('.button');
-    button.forEach(button => button.addEventListener('click', () => {
-        let display = document.querySelector('.display');
-        let y = display.textContent;
-        function addDigit(y, c) {
-            return y + c;
-        };
-        a = display.textContent = addDigit(display.textContent, button.textContent);
-        // a = display.textContent;
-    }));
-}
-buttonClick();
+
+const digitButton = document.querySelectorAll('.digitButton');
+let displayString = document.querySelector('.displayString');
+digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
+    let y = displayString.textContent;
+    function addDigit(y, c) {
+        return y + c;
+    };
+    if (y.length < 12) {
+        a = displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
+    }
+}));
+
+const operateButton = document.querySelectorAll('.operateButton');
+operateButton.forEach(operateButton => operateButton.addEventListener('click', () => {
+    operator = operateButton.textContent;
+    if (a != undefined) {
+        digitButton.forEach(digitButton => digitButton.classList.add('digitButtonB'));
+    }
+}));
+

@@ -1,6 +1,8 @@
 body {
     display: flex;
     justify-content: space-around;
+    height: 865px;
+    background-color: #00C6B8;
 }
 
 .calculator {
@@ -60,5 +62,4 @@ body {
 
 .button:active {
     background-color: #FFD775;
-    color: black;
 }
