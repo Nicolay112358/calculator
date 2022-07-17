@@ -1,4 +1,4 @@
-let a, b;
+let a = 0, b = 0;
 
 function add(a, b) {
     return a + b;
@@ -36,7 +36,12 @@ function buttonClick() {
     let button = document.querySelectorAll('.button');
     button.forEach(button => button.addEventListener('click', () => {
         let display = document.querySelector('.display');
-        display.textContent = `${button.textContent}`;
+        let y = display.textContent;
+        function addDigit(y, c) {
+            return y + c;
+        };
+        a = display.textContent = addDigit(display.textContent, button.textContent);
+        // a = display.textContent;
     }));
 }
 buttonClick();
