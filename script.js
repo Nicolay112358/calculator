@@ -33,24 +33,33 @@ function operate(a, operator, b) {
     }
 
 }
+function addDigit(y, c) {
+    return y + c;
+};
 
 const digitButton = document.querySelectorAll('.digitButton');
 let displayString = document.querySelector('.displayString');
+
 digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
+
     let y = displayString.textContent;
-    function addDigit(y, c) {
-        return y + c;
-    };
+
     if (y.length < 12) {
-        a = displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
+        displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
     }
 }));
 
 const operateButton = document.querySelectorAll('.operateButton');
 operateButton.forEach(operateButton => operateButton.addEventListener('click', () => {
+
+    a = displayString.textContent;
     operator = operateButton.textContent;
-    if (a != undefined) {
-        digitButton.forEach(digitButton => digitButton.classList.add('digitButtonB'));
-    }
+    displayString.textContent = '';
+    console.log(a);
+    console.log(operator);
+    
+    b = displayString.textContent
+    // console.log(b);
+
 }));
 
