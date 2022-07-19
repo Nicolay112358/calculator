@@ -55,11 +55,14 @@ operateButton.forEach(operateButton => operateButton.addEventListener('click', (
     a = displayString.textContent;
     operator = operateButton.textContent;
     displayString.textContent = '';
-    console.log(a);
-    console.log(operator);
-    
-    b = displayString.textContent
-    // console.log(b);
 
 }));
 
+const equal = document.getElementById('equal');
+equal.addEventListener('click', () => {
+
+    b = displayString.textContent;
+    displayString.textContent = `${operate(+a, operator, +b)}`;
+    a = displayString.textContent;
+
+});
