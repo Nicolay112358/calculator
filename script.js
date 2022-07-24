@@ -1,4 +1,5 @@
 let a, operator, b;
+let toggle = false;
 console.log(a, operator, b);
 
 function add(a, b) {
@@ -40,17 +41,18 @@ function addDigit(y, c) {
 
 const digitButton = document.querySelectorAll('.digitButton');
 let displayString = document.querySelector('.displayString');
-
 digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
 
     let y = displayString.textContent;
 
     if (y.length < 12) {
-        if (operator == undefined) {
-            a = (displayString.textContent = addDigit(displayString.textContent, digitButton.textContent));
+        if (toggle == false) {
+            displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
+            a = displayString.textContent;
         }
-        if (operator != undefined) {
-            b = (displayString.textContent = addDigit(displayString.textContent, digitButton.textContent));
+        if (toggle == true) {
+            displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
+            b = displayString.textContent;
         }
     }
     console.log(a, operator, b);
@@ -58,29 +60,57 @@ digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
 }));
 
 const operateButton = document.querySelectorAll('.operateButton');
-
 operateButton.forEach(operateButton => operateButton.addEventListener('click', () => {
-    if (b == undefined) {
+    if (toggle == false) {
         operator = operateButton.textContent;
         displayString.textContent = '';
+        toggle = true;
     }
     if (b != undefined) {
-        displayString.textContent = `${operate(+a, operator, +b)}`;
-        a = displayString.textContent;
-        displayString.textContent = '';
+        let stirng = `${operate(+a, operator, +b)}`;
+        a = stirng;
         b = undefined;
-        operator = operateButton.textContent;
-        console.log(a, operator, b);
+        operator = undefined;
+        displayString.textContent = stirng.slice(0, 12);
     }
+    console.log(a, operator, b);
+
+
+
+
+    // if (b == undefined) {
+    //     operator = operateButton.textContent;
+    //     displayString.textContent = '';
+    // }
+    // if (b != undefined) {
+    //     if (displayString.textContent.length < 12) {
+    //         displayString.textContent = `${operate(+a, operator, +b)}`;
+    //         a = displayString.textContent;
+    //         b = undefined;
+    //         operator = undefined;
+    //     }
+    //     // displayString.textContent = '';
+    //     // operator = operateButton.textContent;
+    //     console.log(a, operator, b);
+    // }
+    // if (a == undefined) {
+    //     operator = undefined;
+    // }
+    // console.log(a, operator, b);
 }));
 
-const equal = document.getElementById('equal');
-
-equal.addEventListener('click', () => {
-    displayString.textContent = `${operate(+a, operator, +b)}`;
-    a = displayString.textContent;
-    b = undefined;
-    operator = undefined;
-    console.log(a, operator, b);
-});
-
+// const equal = document.getElementById('equal');
+// equal.addEventListener('click', () => {
+//     if (operator == undefined) {
+//         a == undefined;
+//         b == undefined;
+//         console.log(a, operator, b);
+//     }
+//     if (operator != undefined) {
+//         displayString.textContent = `${operate(+a, operator, +b)}`;
+//         a = displayString.textContent;
+//         b = undefined;
+//         operator = undefined;
+//         console.log(a, operator, b);
+//     }
+// });
