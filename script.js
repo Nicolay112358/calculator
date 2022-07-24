@@ -1,4 +1,5 @@
 let a, b, operator;
+console.table(a, b, operator);
 
 function add(a, b) {
     return a + b;
@@ -21,6 +22,7 @@ function divide(a, b) {
 }
 
 function operate(a, operator, b) {
+
     switch (operator) {
         case '/':
             return divide(a, b);
@@ -31,7 +33,6 @@ function operate(a, operator, b) {
         case '+':
             return add(a, b);
     }
-
 }
 function addDigit(y, c) {
     return y + c;
@@ -45,24 +46,34 @@ digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
     let y = displayString.textContent;
 
     if (y.length < 12) {
-        displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
+        if (operator == undefined) {
+            a = (displayString.textContent = addDigit(displayString.textContent, digitButton.textContent));
+        }
+        if (operator != undefined) {
+            b = (displayString.textContent = addDigit(displayString.textContent, digitButton.textContent));
+        }
     }
+    console.log(a, b, operator);
 }));
 
 const operateButton = document.querySelectorAll('.operateButton');
+
 operateButton.forEach(operateButton => operateButton.addEventListener('click', () => {
-
-    a = displayString.textContent;
     operator = operateButton.textContent;
-    displayString.textContent = '';
-
+    console.log(a, b, operator);
+    if (b == undefined) {
+        a = displayString.textContent;
+        displayString.textContent = '';
+    }
+    if (b != undefined) {
+        displayString.textContent = `${operate(+a, operator, +b)}`;
+    }
 }));
 
 const equal = document.getElementById('equal');
+
 equal.addEventListener('click', () => {
-
-    b = displayString.textContent;
     displayString.textContent = `${operate(+a, operator, +b)}`;
-    a = displayString.textContent;
-
+    a = `${operate(+a, operator, +b)}`;
 });
+
