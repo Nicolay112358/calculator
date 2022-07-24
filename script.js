@@ -1,5 +1,5 @@
-let a, b, operator;
-console.table(a, b, operator);
+let a, operator, b;
+console.log(a, operator, b);
 
 function add(a, b) {
     return a + b;
@@ -53,20 +53,24 @@ digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
             b = (displayString.textContent = addDigit(displayString.textContent, digitButton.textContent));
         }
     }
-    console.log(a, b, operator);
+    console.log(a, operator, b);
+
 }));
 
 const operateButton = document.querySelectorAll('.operateButton');
 
 operateButton.forEach(operateButton => operateButton.addEventListener('click', () => {
-    operator = operateButton.textContent;
-    console.log(a, b, operator);
     if (b == undefined) {
-        a = displayString.textContent;
+        operator = operateButton.textContent;
         displayString.textContent = '';
     }
     if (b != undefined) {
         displayString.textContent = `${operate(+a, operator, +b)}`;
+        a = displayString.textContent;
+        displayString.textContent = '';
+        b = undefined;
+        operator = operateButton.textContent;
+        console.log(a, operator, b);
     }
 }));
 
@@ -74,6 +78,9 @@ const equal = document.getElementById('equal');
 
 equal.addEventListener('click', () => {
     displayString.textContent = `${operate(+a, operator, +b)}`;
-    a = `${operate(+a, operator, +b)}`;
+    a = displayString.textContent;
+    b = undefined;
+    operator = undefined;
+    console.log(a, operator, b);
 });
 
