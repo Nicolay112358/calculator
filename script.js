@@ -1,5 +1,4 @@
 let a, operator, b;
-let toggle = false;
 console.log(a, operator, b);
 
 function add(a, b) {
@@ -46,11 +45,12 @@ digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
     let y = displayString.textContent;
 
     if (y.length < 12) {
-        if (toggle == false) {
+        if (operator == undefined) {
             displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
             a = displayString.textContent;
         }
-        if (toggle == true) {
+        if (operator != undefined) {
+            displayString.textContent = '';
             displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
             b = displayString.textContent;
         }
@@ -61,56 +61,47 @@ digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
 
 const operateButton = document.querySelectorAll('.operateButton');
 operateButton.forEach(operateButton => operateButton.addEventListener('click', () => {
-    if (toggle == false) {
+
+    if (b == undefined) {
         operator = operateButton.textContent;
         displayString.textContent = '';
-        toggle = true;
     }
     if (b != undefined) {
-        let stirng = `${operate(+a, operator, +b)}`;
-        a = stirng;
-        b = undefined;
+
+        let string = `${operate(+a, operator, +b)}`;
+
+        if (displayString.textContent.length < 12) {
+            displayString.textContent = `${operate(+a, operator, +b)}`;
+            a = displayString.textContent;
+            b = undefined;
+        }
+        if (displayString.textContent.length > 12) {
+            displayString.textContent = string.slice(0, 12);
+            a = string;
+            b = undefined;
+        }
+        operator = operateButton.textContent;
+        console.log(a, operator, b);
+    }
+    if (a == undefined) {
         operator = undefined;
-        displayString.textContent = stirng.slice(0, 12);
     }
     console.log(a, operator, b);
-
-
-
-
-    // if (b == undefined) {
-    //     operator = operateButton.textContent;
-    //     displayString.textContent = '';
-    // }
-    // if (b != undefined) {
-    //     if (displayString.textContent.length < 12) {
-    //         displayString.textContent = `${operate(+a, operator, +b)}`;
-    //         a = displayString.textContent;
-    //         b = undefined;
-    //         operator = undefined;
-    //     }
-    //     // displayString.textContent = '';
-    //     // operator = operateButton.textContent;
-    //     console.log(a, operator, b);
-    // }
-    // if (a == undefined) {
-    //     operator = undefined;
-    // }
-    // console.log(a, operator, b);
 }));
 
-// const equal = document.getElementById('equal');
-// equal.addEventListener('click', () => {
-//     if (operator == undefined) {
-//         a == undefined;
-//         b == undefined;
-//         console.log(a, operator, b);
-//     }
-//     if (operator != undefined) {
-//         displayString.textContent = `${operate(+a, operator, +b)}`;
-//         a = displayString.textContent;
-//         b = undefined;
-//         operator = undefined;
-//         console.log(a, operator, b);
-//     }
-// });
+const equal = document.getElementById('equal');
+equal.addEventListener('click', () => {
+    if (operator == undefined) {
+        a == undefined;
+        b == undefined;
+        console.log(a, operator, b);
+    }
+    if (operator != undefined) {
+        let stirng = `${operate(+a, operator, +b)}`;
+        displayString.textContent = stirng.slice(0, 12);
+        a = displayString.textContent;
+        b = undefined;
+        operator = undefined;
+        console.log(a, operator, b);
+    }
+});
