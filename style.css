@@ -57,9 +57,59 @@ body {
 }
 
 .button:hover {
-    background-color: #8C7996;
+    background-color: #47505E;
+    color: #DAF3FF;
 }
 
 .button:active {
-    background-color: #FFD775;
+    background-color: #C3FCF1;
+    color: black;
+}
+
+#parentheses,
+#backspace,
+.operateButton {
+    background-color: #F9F871;
+}
+
+#parentheses:hover,
+#backspace:hover,
+.operateButton:hover {
+    background-color: #FFAF66;
+    color: black;
+}
+
+#parentheses:active,
+#backspace:active,
+.operateButton:active {
+    background-color: #C3FCF1;
+    color: black;
+}
+
+#equal {
+    background-color: #33B07A;
+}
+
+#equal:hover {
+    background-color: #007160;
+}
+
+#equal:active {
+    background-color: #78C664;
+    color: black;
+
+}
+
+#clear {
+    background-color: #FF8B8B;
+    color: black;
+}
+
+#clear:hover {
+    background-color: #C35659;
+}
+
+#clear:active {
+    background-color: #C3FCF1;
+    color: red;
 }
