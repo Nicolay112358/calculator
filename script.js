@@ -14,11 +14,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    if (b === 0) {
-        alert(`You can not divide by zero`);
-    } else {
-        return a / b;
-    }
+    return a / b;
 }
 
 function operate(a, operator, b) {
@@ -50,18 +46,25 @@ digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
             a = displayString.textContent;
         }
         if (operator != undefined) {
-            displayString.textContent = '';
+            if (b == undefined) {
+                displayString.textContent = '';
+            }
             displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
             b = displayString.textContent;
         }
     }
     console.log(a, operator, b);
-
 }));
 
 const operateButton = document.querySelectorAll('.operateButton');
 operateButton.forEach(operateButton => operateButton.addEventListener('click', () => {
-
+    if (operator == '/' && b == 0) {
+        displayString.textContent = '';
+        alert('You can not divide by zero');
+        a = undefined;
+        operator = undefined;
+        b = undefined;
+    }
     if (b == undefined) {
         operator = operateButton.textContent;
         displayString.textContent = '';
@@ -69,14 +72,13 @@ operateButton.forEach(operateButton => operateButton.addEventListener('click', (
     if (b != undefined) {
 
         let string = `${operate(+a, operator, +b)}`;
-
         if (displayString.textContent.length < 12) {
             displayString.textContent = `${operate(+a, operator, +b)}`;
             a = displayString.textContent;
             b = undefined;
         }
         if (displayString.textContent.length > 12) {
-            displayString.textContent = string.slice(0, 12);
+            displayString.textContent = string.slice(0, 11);
             a = string;
             b = undefined;
         }
@@ -91,17 +93,25 @@ operateButton.forEach(operateButton => operateButton.addEventListener('click', (
 
 const equal = document.getElementById('equal');
 equal.addEventListener('click', () => {
+    if (operator == '/' && b == 0) {
+        displayString.textContent = '';
+        alert('You can not divide by zero');
+        a = undefined;
+        operator = undefined;
+        b = undefined;
+    }
     if (operator == undefined) {
-        a == undefined;
-        b == undefined;
-        console.log(a, operator, b);
+        a = undefined;
+        b = undefined;
     }
     if (operator != undefined) {
-        let stirng = `${operate(+a, operator, +b)}`;
-        displayString.textContent = stirng.slice(0, 12);
-        a = displayString.textContent;
-        b = undefined;
-        operator = undefined;
-        console.log(a, operator, b);
+        if (operator != '/' && b != 0) {
+            let string = `${operate(+a, operator, +b)}`;
+            displayString.textContent = string.slice(0, 11);
+            a = displayString.textContent;
+            b = undefined;
+            operator = undefined;
+        }
     }
+    console.log(a, operator, b);
 });
