@@ -42,7 +42,7 @@ body {
     gap: 3px;
 }
 
-.strigButton {
+.stringButton {
     display: flex;
     justify-content: space-around;
 }

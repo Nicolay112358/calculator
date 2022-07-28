@@ -60,7 +60,7 @@ const operateButton = document.querySelectorAll('.operateButton');
 operateButton.forEach(operateButton => operateButton.addEventListener('click', () => {
     if (operator == '/' && b == 0) {
         displayString.textContent = '';
-        alert('You can not divide by zero');
+        alert(`You can't divide by zero`);
         a = undefined;
         operator = undefined;
         b = undefined;
@@ -96,7 +96,7 @@ const equal = document.getElementById('equal');
 equal.addEventListener('click', () => {
     if (b == 0 && operator == '/') {
         displayString.textContent = '';
-        alert('You can not divide by zero');
+        alert('You can\'t divide by zero');
         a = undefined;
         operator = undefined;
         b = undefined;
@@ -124,4 +124,13 @@ clear.addEventListener('click', () => {
     operator = undefined;
     b = undefined;
     console.log(a, operator, b);
+});
+
+const backspace = document.getElementById('backspace');
+backspace.addEventListener('click', () => {
+    let a = displayString.textContent;
+    let b = displayString.textContent.length;
+    if (b > 1) {
+        displayString.textContent = a.slice(0, displayString.textContent.length - 1);
+    }
 });
