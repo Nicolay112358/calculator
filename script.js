@@ -1,5 +1,4 @@
 let a, operator, b;
-console.log(a, operator, b);
 
 function add(a, b) {
     return a + b;
@@ -80,16 +79,14 @@ operateButton.forEach(operateButton => operateButton.addEventListener('click', (
         }
         if (displayString.textContent.length > 12) {
             displayString.textContent = string.slice(0, 11);
-            a = string;
+            a = displayString.textContent;
             b = undefined;
         }
         operator = operateButton.textContent;
-        console.log(a, operator, b);
     }
     if (a == undefined) {
         operator = undefined;
     }
-    console.log(a, operator, b);
 }));
 
 const equal = document.getElementById('equal');
@@ -112,7 +109,7 @@ equal.addEventListener('click', () => {
             a = string;
             b = undefined;
             operator = undefined;
-            console.log(a, operator, b);
+
         }
     }
 });
@@ -123,14 +120,18 @@ clear.addEventListener('click', () => {
     a = undefined;
     operator = undefined;
     b = undefined;
-    console.log(a, operator, b);
 });
 
 const backspace = document.getElementById('backspace');
 backspace.addEventListener('click', () => {
-    let a = displayString.textContent;
-    let b = displayString.textContent.length;
-    if (b > 1) {
-        displayString.textContent = a.slice(0, displayString.textContent.length - 1);
+    if (displayString.textContent.length > 1) {
+        displayString.textContent = displayString.textContent.slice(0, displayString.textContent.length - 1);
+        if (operator == undefined) {
+            a = displayString.textContent;
+        }
+        if (operator != undefined) {
+            b = displayString.textContent;
+        }
     }
+    console.log(a, operator, b);
 });
