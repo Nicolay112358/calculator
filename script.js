@@ -79,7 +79,9 @@ operateButton.forEach(operateButton => operateButton.addEventListener('click', (
         let string = `${operate(+a, operator, +b)}`;
 
         if (displayString.textContent.length < 12) {
-            displayString.textContent = `${operate(+a, operator, +b)}`;
+            (+string * 1000000000000000) / 1000000000000000;
+            let h = string;
+            displayString.textContent = h.slice(0, 11);
             a = displayString.textContent;
             b = undefined;
         }
@@ -113,8 +115,10 @@ equal.addEventListener('click', () => {
     if (operator != undefined) {
         if (b != 0 && b != undefined) {
             let string = `${operate(+a, operator, +b)}`;
-            displayString.textContent = string.slice(0, 11);
-            a = string;
+            (+string * 1000000000000000) / 1000000000000000;
+            let h = string;
+            displayString.textContent = h.slice(0, 11);
+            a = displayString.textContent;
             b = undefined;
             operator = undefined;
             console.log(a, operator, b);
@@ -172,3 +176,4 @@ dot.addEventListener('click', () => {
     }
     console.log(displayString.textContent);
 });
+
