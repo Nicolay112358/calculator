@@ -177,3 +177,7 @@ dot.addEventListener('click', () => {
     console.log(displayString.textContent);
 });
 
+const plusMinus = document.getElementById('plusMinus');
+plusMinus.addEventListener('click', () => {
+    console.log(a, operator, b);
+});
