@@ -179,5 +179,18 @@ dot.addEventListener('click', () => {
 
 const plusMinus = document.getElementById('plusMinus');
 plusMinus.addEventListener('click', () => {
+    if (displayString.textContent != '') {
+        displayString.textContent = `-${displayString.textContent}`;
+        if (operator == undefined) {
+            a = displayString.textContent;
+        }
+        if (operator != undefined) {
+            b = displayString.textContent;
+        }
+    }
+    if (displayString.textContent.includes('-') == true) {
+        // I need add way to change the number value from negative to positive  
+        console.log(displayString.textContent);
+    }
     console.log(a, operator, b);
 });
