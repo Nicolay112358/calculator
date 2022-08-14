@@ -39,22 +39,23 @@ function addDigit(y, c) {
 
 const digitButton = document.querySelectorAll('.digitButton');
 let displayString = document.querySelector('.displayString');
+let displayStringResult = document.querySelector('.displayStringResult');
 
 digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
 
     let y = displayString.textContent;
 
-    if (y.length < 12) {
+    if (y.length < 11) {
         if (operator == undefined) {
             displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
             a = displayString.textContent;
         }
         if (operator != undefined) {
             if (b == undefined) {
-                displayString.textContent = '';
+                displayString.textContent = a + operator;
             }
+            b = digitButton.textContent;
             displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
-            b = displayString.textContent;
         }
     }
     console.log(a, operator, b);
@@ -63,6 +64,7 @@ digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
 // operations buttons
 const operateButton = document.querySelectorAll('.operateButton');
 operateButton.forEach(operateButton => operateButton.addEventListener('click', () => {
+
     if (operator == '/' && b == 0) {
         displayString.textContent = '';
         alert(`You can't divide by zero`);
@@ -72,7 +74,7 @@ operateButton.forEach(operateButton => operateButton.addEventListener('click', (
     }
     if (b == undefined) {
         operator = operateButton.textContent;
-        displayString.textContent = '';
+        displayString.textContent = a + operator;
     }
     if (b != undefined) {
 
@@ -138,14 +140,12 @@ clear.addEventListener('click', () => {
 // backspace button
 const backspace = document.getElementById('backspace');
 backspace.addEventListener('click', () => {
-    if (displayString.textContent.length > 1) {
-        displayString.textContent = displayString.textContent.slice(0, displayString.textContent.length - 1);
-        if (operator == undefined) {
-            a = displayString.textContent;
-        }
-        if (operator != undefined) {
-            b = displayString.textContent;
-        }
+    displayString.textContent = displayString.textContent.slice(0, displayString.textContent.length - 1);
+    if (operator == undefined) {
+        a = displayString.textContent;
+    }
+    if (operator != undefined) {
+        b = displayString.textContent;
     }
     console.log(a, operator, b);
 });
@@ -201,3 +201,21 @@ plusMinus.addEventListener('click', () => {
     }
     console.log(a, operator, b);
 });
+
+const brackets = document.getElementById('brackets');
+brackets.addEventListener('click', () => {
+    let openBrackets = '(';
+    let closeBrackets = ')'
+    function addBrackets() {
+        if (displayString.textContent.length < 16) {
+            if (a == undefined) {
+                displayString.textContent = displayString.textContent + openBrackets;
+            }
+            if (a != undefined && displayString.textContent.includes('(')) {
+                displayString.textContent = displayString.textContent + closeBrackets;
+            }
+        }
+    }
+    addBrackets();
+})
+
