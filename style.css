@@ -18,7 +18,7 @@ body {
 .display {
     height: 150px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: flex-end;
     padding: 10px;
     margin-left: 15px;
@@ -66,20 +66,20 @@ body {
     color: black;
 }
 
-#brackets,
+/* #brackets, */
 #backspace,
 .operateButton {
     background-color: #F9F871;
 }
 
-#brackets:hover,
+/* #brackets:hover, */
 #backspace:hover,
 .operateButton:hover {
     background-color: #FFAF66;
     color: black;
 }
 
-#brackets:active,
+/* #brackets:active, */
 #backspace:active,
 .operateButton:active {
     background-color: #C3FCF1;
@@ -103,6 +103,9 @@ body {
 #clear {
     background-color: #FF8B8B;
     color: black;
+    width: 142px;
+    border-radius: 30px;
+    /*delet if you add brackets button*/
 }
 
 #clear:hover {

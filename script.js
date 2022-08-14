@@ -39,7 +39,6 @@ function addDigit(y, c) {
 
 const digitButton = document.querySelectorAll('.digitButton');
 let displayString = document.querySelector('.displayString');
-let displayStringResult = document.querySelector('.displayStringResult');
 
 digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
 
@@ -52,10 +51,10 @@ digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
         }
         if (operator != undefined) {
             if (b == undefined) {
-                displayString.textContent = a + operator;
+                displayString.textContent = '';
             }
-            b = digitButton.textContent;
             displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
+            b = displayString.textContent;
         }
     }
     console.log(a, operator, b);
@@ -74,7 +73,7 @@ operateButton.forEach(operateButton => operateButton.addEventListener('click', (
     }
     if (b == undefined) {
         operator = operateButton.textContent;
-        displayString.textContent = a + operator;
+        displayString.textContent = '';
     }
     if (b != undefined) {
 
@@ -94,7 +93,7 @@ operateButton.forEach(operateButton => operateButton.addEventListener('click', (
         }
         operator = operateButton.textContent;
     }
-    if (a == undefined) {
+    if (a == undefined || a == '') {
         operator = undefined;
     }
     console.log(a, operator, b);
@@ -115,7 +114,7 @@ equal.addEventListener('click', () => {
         b = undefined;
     }
     if (operator != undefined) {
-        if (b != 0 && b != undefined) {
+        if (b != undefined) {
             let string = `${operate(+a, operator, +b)}`;
             (+string * 1000000000000000) / 1000000000000000;
             let h = string;
@@ -126,6 +125,7 @@ equal.addEventListener('click', () => {
             console.log(a, operator, b);
         }
     }
+    console.log(a, operator, b);
 });
 
 // clear button
@@ -153,28 +153,20 @@ backspace.addEventListener('click', () => {
 // dot button
 const dot = document.getElementById('dot');
 dot.addEventListener('click', () => {
+    if (displayString.textContent != '' && displayString.textContent.includes('.') != true) {
+        displayString.textContent = displayString.textContent + dot.textContent;
+        if (a != undefined && operator != undefined) {
+            b = displayString.textContent;
+            console.log(a, operator, b);
+        }
+    }
     if (displayString.textContent == '') {
         displayString.textContent = `0${dot.textContent}`;
         if (operator == undefined) {
             a = displayString.textContent;
         }
-        if (operator != undefined) {
-            b = displayString.textContent;
-        }
     }
-    if (displayString.textContent.includes('.') != true) {
-        if (displayString.textContent != '') {
-            displayString.textContent = displayString.textContent + dot.textContent;
-            if (operator == undefined) {
-                a = displayString.textContent;
-            }
-            if (operator != undefined) {
-                b = displayString.textContent;
-            }
-        }
 
-    }
-    console.log(displayString.textContent);
 });
 
 // plus/minus button
@@ -202,20 +194,19 @@ plusMinus.addEventListener('click', () => {
     console.log(a, operator, b);
 });
 
-const brackets = document.getElementById('brackets');
-brackets.addEventListener('click', () => {
-    let openBrackets = '(';
-    let closeBrackets = ')'
-    function addBrackets() {
-        if (displayString.textContent.length < 16) {
-            if (a == undefined) {
-                displayString.textContent = displayString.textContent + openBrackets;
-            }
-            if (a != undefined && displayString.textContent.includes('(')) {
-                displayString.textContent = displayString.textContent + closeBrackets;
-            }
-        }
-    }
-    addBrackets();
-})
-
+// const brackets = document.getElementById('brackets');
+// brackets.addEventListener('click', () => {
+//     let openBrackets = '(';
+//     let closeBrackets = ')'
+//     function addBrackets() {
+//         if (displayString.textContent.length < 16) {
+//             if (a == undefined) {
+//                 displayString.textContent = displayString.textContent + openBrackets;
+//             }
+//             if (a != undefined && displayString.textContent.includes('(')) {
+//                 displayString.textContent = displayString.textContent + closeBrackets;
+//             }
+//         }
+//     }
+//     addBrackets();
+// })
