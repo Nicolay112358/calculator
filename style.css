@@ -66,20 +66,17 @@ body {
     color: black;
 }
 
-/* #brackets, */
 #backspace,
 .operateButton {
     background-color: #F9F871;
 }
 
-/* #brackets:hover, */
 #backspace:hover,
 .operateButton:hover {
     background-color: #FFAF66;
     color: black;
 }
 
-/* #brackets:active, */
 #backspace:active,
 .operateButton:active {
     background-color: #C3FCF1;
@@ -105,7 +102,6 @@ body {
     color: black;
     width: 142px;
     border-radius: 30px;
-    /*delet if you add brackets button*/
 }
 
 #clear:hover {

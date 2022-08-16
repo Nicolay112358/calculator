@@ -40,11 +40,10 @@ function addDigit(y, c) {
 const digitButton = document.querySelectorAll('.digitButton');
 let displayString = document.querySelector('.displayString');
 
+
 digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
 
-    let y = displayString.textContent;
-
-    if (y.length < 11) {
+    if (displayString.textContent.length < 11) {
         if (operator == undefined) {
             displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
             a = displayString.textContent;
@@ -59,6 +58,13 @@ digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
     }
     console.log(a, operator, b);
 }));
+// keyboard support
+// document.getElementById('displayString').onekeypress = function (e) {
+
+//     displayString.textContent = displayString.textContent + e.key;
+//     console.log(e);
+// }
+
 
 // operations buttons
 const operateButton = document.querySelectorAll('.operateButton');
@@ -194,19 +200,11 @@ plusMinus.addEventListener('click', () => {
     console.log(a, operator, b);
 });
 
-// const brackets = document.getElementById('brackets');
-// brackets.addEventListener('click', () => {
-//     let openBrackets = '(';
-//     let closeBrackets = ')'
-//     function addBrackets() {
-//         if (displayString.textContent.length < 16) {
-//             if (a == undefined) {
-//                 displayString.textContent = displayString.textContent + openBrackets;
-//             }
-//             if (a != undefined && displayString.textContent.includes('(')) {
-//                 displayString.textContent = displayString.textContent + closeBrackets;
-//             }
-//         }
-//     }
-//     addBrackets();
-// })
+window.onkeydown = function (e) {
+    if ((e.keyCode >= 96 && e.keyCode <= 105) || (e.keyCode >= 48 && e.keyCode <= 57)) {
+        if (displayString.textContent.length < 11) {
+            displayString.textContent = displayString.textContent + e.key;
+        }
+    }
+    console.log(e);
+}
