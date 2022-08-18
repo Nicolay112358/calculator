@@ -23,7 +23,7 @@ function operate(a, operator, b) {
     switch (operator) {
         case '/':
             return divide(a, b);
-        case 'x':
+        case ('x' || '*'):
             return multiply(a, b);
         case '-':
             return subtract(a, b);
@@ -36,13 +36,9 @@ function operate(a, operator, b) {
 function addDigit(y, c) {
     return y + c;
 };
-
 const digitButton = document.querySelectorAll('.digitButton');
 let displayString = document.querySelector('.displayString');
-
-
 digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
-
     if (displayString.textContent.length < 11) {
         if (operator == undefined) {
             displayString.textContent = addDigit(displayString.textContent, digitButton.textContent);
@@ -58,13 +54,6 @@ digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
     }
     console.log(a, operator, b);
 }));
-// keyboard support
-// document.getElementById('displayString').onekeypress = function (e) {
-
-//     displayString.textContent = displayString.textContent + e.key;
-//     console.log(e);
-// }
-
 
 // operations buttons
 const operateButton = document.querySelectorAll('.operateButton');
@@ -106,8 +95,7 @@ operateButton.forEach(operateButton => operateButton.addEventListener('click', (
 }));
 
 // equal button
-const equal = document.getElementById('equal');
-equal.addEventListener('click', () => {
+function equalButton() {
     if (b == 0 && operator == '/') {
         displayString.textContent = '';
         alert('You can\'t divide by zero');
@@ -131,21 +119,27 @@ equal.addEventListener('click', () => {
             console.log(a, operator, b);
         }
     }
+}
+const equal = document.getElementById('equal');
+equal.addEventListener('click', () => {
+    equalButton();
     console.log(a, operator, b);
 });
 
 // clear button
-const clear = document.getElementById('clear');
-clear.addEventListener('click', () => {
+function clearButton() {
     displayString.textContent = '';
     a = undefined;
     operator = undefined;
     b = undefined;
+}
+const clear = document.getElementById('clear');
+clear.addEventListener('click', () => {
+    clearButton();
 });
 
 // backspace button
-const backspace = document.getElementById('backspace');
-backspace.addEventListener('click', () => {
+function backspaceButton() {
     displayString.textContent = displayString.textContent.slice(0, displayString.textContent.length - 1);
     if (operator == undefined) {
         a = displayString.textContent;
@@ -153,12 +147,15 @@ backspace.addEventListener('click', () => {
     if (operator != undefined) {
         b = displayString.textContent;
     }
+}
+const backspace = document.getElementById('backspace');
+backspace.addEventListener('click', () => {
+    backspaceButton();
     console.log(a, operator, b);
 });
 
 // dot button
-const dot = document.getElementById('dot');
-dot.addEventListener('click', () => {
+function dotButton() {
     if (displayString.textContent != '' && displayString.textContent.includes('.') != true) {
         displayString.textContent = displayString.textContent + dot.textContent;
         if (a != undefined && operator != undefined) {
@@ -172,12 +169,14 @@ dot.addEventListener('click', () => {
             a = displayString.textContent;
         }
     }
-
+}
+const dot = document.getElementById('dot');
+dot.addEventListener('click', () => {
+    dotButton();
 });
 
 // plus/minus button
-const plusMinus = document.getElementById('plusMinus');
-plusMinus.addEventListener('click', () => {
+function plusMnusButton() {
     if (displayString.textContent != '' || displayString.textContent.includes('-') == true) {
         displayString.textContent = `-${displayString.textContent}`;
         if (operator == undefined) {
@@ -187,7 +186,6 @@ plusMinus.addEventListener('click', () => {
             b = displayString.textContent;
         }
     }
-
     if (displayString.textContent.includes('--') == true) {
         displayString.textContent = displayString.textContent.slice(2, displayString.textContent.length);
         if (operator == undefined) {
@@ -197,14 +195,87 @@ plusMinus.addEventListener('click', () => {
             b = displayString.textContent;
         }
     }
+}
+const plusMinus = document.getElementById('plusMinus');
+plusMinus.addEventListener('click', () => {
+    plusMnusButton();
     console.log(a, operator, b);
 });
 
+// keyboard support
 window.onkeydown = function (e) {
+
+    //  digital buttons keyboard support
     if ((e.keyCode >= 96 && e.keyCode <= 105) || (e.keyCode >= 48 && e.keyCode <= 57)) {
         if (displayString.textContent.length < 11) {
             displayString.textContent = displayString.textContent + e.key;
+            if (operator == undefined) {
+                a = +displayString.textContent;
+            } else {
+                b = +displayString.textContent;
+            }
+            console.log(a, operator, b);
         }
     }
-    console.log(e);
+
+    // operations buttons keyboard support 
+    if (e.keyCode == 111 || e.keyCode == 106 || e.keyCode == 109 || e.keyCode == 107) {
+        displayString.textContent = '';
+        operator = e.key;
+        if (operator == '/' && b == 0) {
+            displayString.textContent = '';
+            alert(`You can't divide by zero`);
+            a = undefined;
+            operator = undefined;
+            b = undefined;
+        }
+
+        if (a == undefined || a == '') {
+            operator = undefined;
+        }
+        console.log(operator);
+    }
+
+    // equal button keyboard support
+    if (e.keyCode == 13) {
+        equalButton();
+    }
+
+    // clear button keyboard support
+    if (e.keyCode == 27) {
+        clearButton();
+    }
+
+    // backspace button keyboard support
+    if (e.keyCode == 8) {
+        backspaceButton();
+    }
+
+    // dot button keyboard support
+    if (e.keyCode == 110 || e.keyCode == 190) {
+        dotButton();
+    }
+
+    // plus/minus button keyboard support 
+    if (e.keyCode = 189) {
+        if (displayString.textContent != '' || displayString.textContent.includes('-') == true) {
+            displayString.textContent = `-${displayString.textContent}`;
+            if (operator == undefined) {
+                a = displayString.textContent;
+            }
+            if (operator != undefined) {
+                b = displayString.textContent;
+            }
+        }
+        if (displayString.textContent.includes('--') == true) {
+            displayString.textContent = displayString.textContent.slice(2, displayString.textContent.length);
+            if (operator == undefined) {
+                a = displayString.textContent;
+            }
+            if (operator != undefined) {
+                b = displayString.textContent;
+            }
+        }
+    }
+    // console.log(e);
 }
