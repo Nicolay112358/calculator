@@ -175,7 +175,7 @@ dot.addEventListener('click', () => {
     dotButton();
 });
 
-// plus/minus button
+// plus / minus button
 function plusMnusButton() {
     if (displayString.textContent != '' || displayString.textContent.includes('-') == true) {
         displayString.textContent = `-${displayString.textContent}`;
@@ -204,7 +204,6 @@ plusMinus.addEventListener('click', () => {
 
 // keyboard support
 window.onkeydown = function (e) {
-
     //  digital buttons keyboard support
     if ((e.keyCode >= 96 && e.keyCode <= 105) || (e.keyCode >= 48 && e.keyCode <= 57)) {
         if (displayString.textContent.length < 11) {
@@ -257,25 +256,8 @@ window.onkeydown = function (e) {
     }
 
     // plus/minus button keyboard support 
-    if (e.keyCode = 189) {
-        if (displayString.textContent != '' || displayString.textContent.includes('-') == true) {
-            displayString.textContent = `-${displayString.textContent}`;
-            if (operator == undefined) {
-                a = displayString.textContent;
-            }
-            if (operator != undefined) {
-                b = displayString.textContent;
-            }
-        }
-        if (displayString.textContent.includes('--') == true) {
-            displayString.textContent = displayString.textContent.slice(2, displayString.textContent.length);
-            if (operator == undefined) {
-                a = displayString.textContent;
-            }
-            if (operator != undefined) {
-                b = displayString.textContent;
-            }
-        }
+    if (e.keyCode == 189) {
+        plusMnusButton();
+        console.log(a, operator, b);
     }
-    // console.log(e);
 }
