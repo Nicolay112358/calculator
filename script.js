@@ -1,29 +1,23 @@
 let a, operator, b;
-console.log(a, operator, b);
 
 // main function
 function add(a, b) {
     return a + b;
 }
-
 function subtract(a, b) {
     return a - b;
 }
-
 function multiply(a, b) {
     return a * b;
 }
-
 function divide(a, b) {
     return a / b;
 }
-
 function operate(a, operator, b) {
-
     switch (operator) {
         case '/':
             return divide(a, b);
-        case ('x' || '*'):
+        case 'x':
             return multiply(a, b);
         case '-':
             return subtract(a, b);
@@ -33,11 +27,11 @@ function operate(a, operator, b) {
 }
 
 // digit buttons
+const digitButton = document.querySelectorAll('.digitButton');
+let displayString = document.querySelector('.displayString');
 function addDigit(y, c) {
     return y + c;
 };
-const digitButton = document.querySelectorAll('.digitButton');
-let displayString = document.querySelector('.displayString');
 digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
     if (displayString.textContent.length < 11) {
         if (operator == undefined) {
@@ -52,13 +46,11 @@ digitButton.forEach(digitButton => digitButton.addEventListener('click', () => {
             b = displayString.textContent;
         }
     }
-    console.log(a, operator, b);
 }));
 
 // operations buttons
 const operateButton = document.querySelectorAll('.operateButton');
 operateButton.forEach(operateButton => operateButton.addEventListener('click', () => {
-
     if (operator == '/' && b == 0) {
         displayString.textContent = '';
         alert(`You can't divide by zero`);
@@ -74,15 +66,15 @@ operateButton.forEach(operateButton => operateButton.addEventListener('click', (
 
         let string = `${operate(+a, operator, +b)}`;
 
-        if (displayString.textContent.length < 12) {
+        if (displayString.textContent.length < 11) {
             (+string * 1000000000000000) / 1000000000000000;
             let h = string;
-            displayString.textContent = h.slice(0, 11);
+            displayString.textContent = h.slice(0, 10);
             a = displayString.textContent;
             b = undefined;
         }
         if (displayString.textContent.length > 12) {
-            displayString.textContent = string.slice(0, 11);
+            displayString.textContent = string.slice(0, 10);
             a = displayString.textContent;
             b = undefined;
         }
@@ -91,10 +83,10 @@ operateButton.forEach(operateButton => operateButton.addEventListener('click', (
     if (a == undefined || a == '') {
         operator = undefined;
     }
-    console.log(a, operator, b);
 }));
 
 // equal button
+const equal = document.getElementById('equal');
 function equalButton() {
     if (b == 0 && operator == '/') {
         displayString.textContent = '';
@@ -116,29 +108,27 @@ function equalButton() {
             a = displayString.textContent;
             b = undefined;
             operator = undefined;
-            console.log(a, operator, b);
         }
     }
 }
-const equal = document.getElementById('equal');
 equal.addEventListener('click', () => {
     equalButton();
-    console.log(a, operator, b);
 });
 
 // clear button
+const clear = document.getElementById('clear');
 function clearButton() {
     displayString.textContent = '';
     a = undefined;
     operator = undefined;
     b = undefined;
 }
-const clear = document.getElementById('clear');
 clear.addEventListener('click', () => {
     clearButton();
 });
 
 // backspace button
+const backspace = document.getElementById('backspace');
 function backspaceButton() {
     displayString.textContent = displayString.textContent.slice(0, displayString.textContent.length - 1);
     if (operator == undefined) {
@@ -148,19 +138,17 @@ function backspaceButton() {
         b = displayString.textContent;
     }
 }
-const backspace = document.getElementById('backspace');
 backspace.addEventListener('click', () => {
     backspaceButton();
-    console.log(a, operator, b);
 });
 
 // dot button
+const dot = document.getElementById('dot');
 function dotButton() {
     if (displayString.textContent != '' && displayString.textContent.includes('.') != true) {
         displayString.textContent = displayString.textContent + dot.textContent;
         if (a != undefined && operator != undefined) {
             b = displayString.textContent;
-            console.log(a, operator, b);
         }
     }
     if (displayString.textContent == '') {
@@ -170,12 +158,12 @@ function dotButton() {
         }
     }
 }
-const dot = document.getElementById('dot');
 dot.addEventListener('click', () => {
     dotButton();
 });
 
 // plus / minus button
+const plusMinus = document.getElementById('plusMinus');
 function plusMnusButton() {
     if (displayString.textContent != '' || displayString.textContent.includes('-') == true) {
         displayString.textContent = `-${displayString.textContent}`;
@@ -196,10 +184,8 @@ function plusMnusButton() {
         }
     }
 }
-const plusMinus = document.getElementById('plusMinus');
 plusMinus.addEventListener('click', () => {
     plusMnusButton();
-    console.log(a, operator, b);
 });
 
 // keyboard support
@@ -207,20 +193,23 @@ window.onkeydown = function (e) {
     //  digital buttons keyboard support
     if ((e.keyCode >= 96 && e.keyCode <= 105) || (e.keyCode >= 48 && e.keyCode <= 57)) {
         if (displayString.textContent.length < 11) {
-            displayString.textContent = displayString.textContent + e.key;
             if (operator == undefined) {
+                displayString.textContent = displayString.textContent + e.key;
                 a = +displayString.textContent;
-            } else {
+            }
+            if (operator != undefined) {
+                if (b == undefined) {
+                    displayString.textContent = '';
+                }
+                displayString.textContent = displayString.textContent + e.key;
                 b = +displayString.textContent;
             }
-            console.log(a, operator, b);
         }
     }
 
     // operations buttons keyboard support 
     if (e.keyCode == 111 || e.keyCode == 106 || e.keyCode == 109 || e.keyCode == 107) {
         displayString.textContent = '';
-        operator = e.key;
         if (operator == '/' && b == 0) {
             displayString.textContent = '';
             alert(`You can't divide by zero`);
@@ -228,11 +217,32 @@ window.onkeydown = function (e) {
             operator = undefined;
             b = undefined;
         }
-
+        let string = `${operate(+a, operator, +b)}`;
+        if (e.keyCode == 106) {
+            operator = 'x';
+        } else {
+            operator = e.key;
+        }
+        if (b == undefined) {
+            displayString.textContent = '';
+        }
+        if (b != undefined) {
+            if (displayString.textContent.length < 11) {
+                (+string * 1000000000000000) / 1000000000000000;
+                let h = string;
+                displayString.textContent = h.slice(0, 10);
+                a = displayString.textContent;
+                b = undefined;
+            }
+            if (displayString.textContent.length > 11) {
+                displayString.textContent = string.slice(0, 10);
+                a = displayString.textContent;
+                b = undefined;
+            }
+        }
         if (a == undefined || a == '') {
             operator = undefined;
         }
-        console.log(operator);
     }
 
     // equal button keyboard support
@@ -258,6 +268,5 @@ window.onkeydown = function (e) {
     // plus/minus button keyboard support 
     if (e.keyCode == 189) {
         plusMnusButton();
-        console.log(a, operator, b);
     }
 }
