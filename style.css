@@ -2,7 +2,7 @@ body {
     display: flex;
     justify-content: space-around;
     height: 865px;
-    background-color: #00C6B8;
+    background-color: rgb(211, 193, 136);
 }
 
 .calculator {
@@ -27,6 +27,7 @@ body {
     border-radius: 5px;
     color: white;
     font-size: 45px;
+    background-color: #2e3e53;
 }
 
 .display div {
